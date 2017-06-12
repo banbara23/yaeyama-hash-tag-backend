@@ -9,7 +9,18 @@ function initialize() {
     firebase.initializeApp(config);
 }
 
-const tag_yaeyama = "%E5%85%AB%E9%87%8D%E5%B1%B1"; // 八重山
+/**
+ * hashtags.jsからスクレイピング -> Firebase送信
+ */
+function scrapingAndSendAll() {
+    const hashtags = require("./hashtags.js")
+    return Promise.all(
+        hashtags.map(hashtag => {
+            return scraping(hashtag.tag)
+                .then(data => sendToFirebase(hashtag, data))
+        })
+    )
+}
 
 /**
  * スクレイピングして結果をpromiseで返す
@@ -27,11 +38,10 @@ function scraping(tag) {
  * 引数をFirebase Databaseに送信する
  * @param {object} data 
  */
-function sendToFirebase(data) {
+function sendToFirebase(hashtag, data) {
     return firebase.database()
-        .ref('/')
+        .ref('/' + hashtag.id)
         .set(data, function () {
-            firebase.database().goOffline()
             console.log('send ok')
         })
 }
@@ -42,7 +52,7 @@ function sendToFirebase(data) {
 Promise.resolve()
     .then(console.log('main start'))
     .then(initialize())
-    .then(() => scraping(tag_yaeyama))
-    .then(data => sendToFirebase(data))
+    .then(() => scrapingAndSendAll())
+    .then(() => firebase.database().goOffline())
     .then(() => console.log('main end'))
     .catch(err => console.error(err))
