@@ -10,6 +10,7 @@
   "author": "ikemura",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^4.1.2",
     "instagram-tagscrape": "^1.0.2"
   }
 }

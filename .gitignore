@@ -48,4 +48,4 @@ jspm_packages
 
 .vscode
 
-config.json
+firebase-config.js
