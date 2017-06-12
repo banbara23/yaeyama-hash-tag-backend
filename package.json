@@ -9,5 +9,7 @@
   "keywords": [],
   "author": "ikemura",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "instagram-tagscrape": "^1.0.2"
+  }
 }
