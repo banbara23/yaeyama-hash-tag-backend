@@ -29,7 +29,6 @@ function scrapingAndSendAll() {
 function scraping(tag) {
     return ig.scrapeTagPage(tag)
         .then((result) => {
-            console.log("scraping ok")
             return result;
         })
 }
@@ -42,7 +41,7 @@ function sendToFirebase(hashtag, data) {
     return firebase.database()
         .ref('/' + hashtag.id)
         .set(data, function () {
-            console.log('send ok')
+            console.log(`send ${hashtag.name}`)
         })
 }
 
