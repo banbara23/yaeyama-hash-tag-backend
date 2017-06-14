@@ -39,7 +39,7 @@ function scraping(tag) {
  */
 function sendToFirebase(hashtag, data) {
     return firebase.database()
-        .ref('/' + hashtag.id)
+        .ref('/instagram/' + hashtag.id)
         .set(data, function () {
             console.log(`send ${hashtag.name}`)
         })
