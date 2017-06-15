@@ -30,7 +30,7 @@ function scrapingAndSendAll() {
     return Promise.all(
         hashtags.map(hashtag => {
             return scraping(hashtag.tag)
-                .then(data => fixData(data))
+                .then(data => convertTimestampToDate(data))
                 .then(data => sendToFirebase(hashtag, data))
         })
     )
@@ -50,7 +50,7 @@ function scraping(tag) {
 /**
  * 引数をFirebase Databaseに送信する
  * @param {object} data 
- */
+*/
 function sendToFirebase(hashtag, data) {
     return firebase.database()
         .ref('/instagram/' + hashtag.id)
@@ -59,12 +59,16 @@ function sendToFirebase(hashtag, data) {
         })
 }
 
-function fixData(data) {
-    // console.log(data.media)
-    // data.media.array.forEach(function(element) {
-    //     console.log(element)
-    // }, this);
-    console.log(moment.unix(timestamp).format('LLL'))
-    return Promise.resolve(data);
+/**
+ * タイムスタンプを日付に変換して'post_date'に追加する
+ * @param {object} data スクレイピング済みデータ
+ */
+function convertTimestampToDate(data) {
+    if (!Array.isArray(data.media)) return;
 
+    data.media.forEach(function (elm) {
+        elm.post_date = moment.unix(elm.date).format('LLL');
+    }, this);
+
+    return Promise.resolve(data);
 }
