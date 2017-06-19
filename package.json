@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^4.1.2",
+    "instagram-searchtags": "^2.0.9",
     "instagram-tagscrape": "^1.0.2",
     "moment": "^2.18.1"
   }
