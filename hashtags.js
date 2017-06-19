@@ -48,6 +48,6 @@ module.exports = {
   yonaguni: {
     id: 'yonaguni',
     name: "与那国島",
-    tag: "%97%5E%93%DF%8D%91%93%87"
+    tag: "%e4%b8%8e%e9%82%a3%e5%9b%bd%e5%b3%b6"
   }
 }
