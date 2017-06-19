@@ -44,5 +44,10 @@ module.exports = [
     id: 'hateruma',
     name: "波照間島",
     tag: "%e6%b3%a2%e7%85%a7%e9%96%93%e5%b3%b6"
+  },
+  {
+    id: 'yonaguni',
+    name: "与那国島",
+    tag: "%e4%b8%8e%e9%82%a3%e5%9b%bd%e5%b3%b6"
   }
 ]
