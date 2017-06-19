@@ -1,6 +1,7 @@
-const moment = require("moment")
-
-const timestamp = "1497428291"
-
-console.log(moment.locale('ja'))
-console.log(moment.unix(timestamp).format('LLL'))
+const ig = require('instagram-tagscrape');
+const fs = require('fs');
+const tag = 'hashtag';
+ig.scrapeTagPage(tag)
+  .then((result) => {
+    fs.writeFile(`${tag}.json`, JSON.stringify(result));
+  })
