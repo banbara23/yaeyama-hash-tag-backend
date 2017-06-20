@@ -85,19 +85,20 @@ function makeSendData() {
   const hashtags = require("./hashtags.js");
   return Promise.all(
     hashtags.map(hashtag => {
-      return new Promise(function (resolve,reject) {
+      return new Promise(function (resolve, reject) {
         const id = hashtag.id;
         console.log(id);
         // エラーチェック 生データはあるか？
         if (!Array.isArray(getRaw(id))) {
           console.log('生データなし、ループ終了');
-          resolve();
+          reject("エラー：生データなし！");
         }
+        console.log(`${id} raw ${getRaw(id).length}件`)
         // 選別開始
         // console.log('選別開始');
         const filtered = filter(id); // フィルターで取得する値だけ取得
         if (!filtered) resolve();
-        console.log(filtered.length)
+        console.log(`${id} filter ${filtered.length}件`)
 
         // 選別した値をインデックス＆公開テーブルに追加する
         // console.log('選別した値をインデックス＆公開テーブルに追加する');
