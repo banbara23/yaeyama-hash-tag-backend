@@ -127,21 +127,9 @@ function makeSendData() {
           return idx;
         })();
 
-        // 既存のデータがあれば送信用変数にセットする
-
-        if (getIndex(id).length > 0) {
-          newIndex[id] = getIndex(id);  // index
-        }
-
-        if (getPublic(id).length > 0) {
-          public[id] = getPublic(id);    // 公開済み
-        }
-
-        newIndex[id] = newIdx;
-        newPublic[id] = newPub;
-
-        // console.log(newIndex[id])
-        // console.log(newPub[id])
+        // 送信用変数にセットする
+        newIndex[id] = getIndex(id).concat(newIdx);
+        newPublic[id] = getPublic(id).concat(newPub);
 
         // 完了
         resolve();
@@ -163,7 +151,7 @@ function filter(id) {
   }
 
   return getRaw(id).filter(function (data) {
-    return index.indexOf(data.code);
+    return index.indexOf(data.code) < 0;
   })
 }
 
@@ -190,7 +178,7 @@ function sendToFirebase(path, data) {
   // console.log(data)
   return firebase.database()
     .ref(path)
-    .set(data, function () {
+    .update(data, function () {
       console.log(`send ${path}`)
     })
 }
