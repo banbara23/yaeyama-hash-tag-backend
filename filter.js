@@ -116,8 +116,8 @@ function makeSendData() {
         })();
 
         // 送信用変数にセットする
-        newIndex[id] = getIndex(id).concat(newIdx);
-        newPublic[id] = getPublic(id).concat(newPub);
+        newIndex[id] = newIdx.concat(getIndex(id));
+        newPublic[id] = newPub.concat(getPublic(id));
 
         // 完了
         resolve();
