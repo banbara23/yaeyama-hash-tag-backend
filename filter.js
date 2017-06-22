@@ -42,8 +42,7 @@ function initialize() {
  * 公開前の生データを取得
  */
 function getRaw(id) {
-  // return Promise.resolve(raw[id].media);
-  return raw[id].media;
+  return raw[id] ? raw[id].media : [];
 }
 
 /**
@@ -52,13 +51,7 @@ function getRaw(id) {
  * @return {array} 配列
  */
 function getPublic(id) {
-  // return Promise.resolve(public[id]);
-  if (public) {
-    return public[id]
-  }
-  else {
-    return [];
-  }
+  return public ? public[id] : [];
 }
 
 /**
@@ -67,13 +60,7 @@ function getPublic(id) {
  * @return {array} 配列
  */
 function getIndex(id) {
-  // return Promise.resolve(index[id]);
-  if (index) {
-    return index[id]
-  }
-  else {
-    return [];
-  }
+  return index ? index[id] : [];
 }
 
 /**
@@ -87,11 +74,10 @@ function makeSendData() {
     hashtags.map(hashtag => {
       return new Promise(function (resolve, reject) {
         const id = hashtag.id;
-        console.log(id);
+        // console.log(id);
         // エラーチェック 生データはあるか？
-        if (!Array.isArray(getRaw(id))) {
-          console.log('生データなし、ループ終了');
-          reject("エラー：生データなし！");
+        if (!raw) {
+          reject('生データないので処理せずスキップ');
         }
         console.log(`${id} raw ${getRaw(id).length}件`)
         // 選別開始
@@ -143,30 +129,14 @@ function makeSendData() {
  * @param {string} id 
  */
 function filter(id) {
-
   const index = getIndex(id);
-  if (!index) {
-    // インデックスが空なら全件追加
-    return getRaw(id);
-  }
+
+  // インデックスが空なら全件追加するためフィルター処理する必要はない
+  if (!index) return getRaw(id);
 
   return getRaw(id).filter(function (data) {
     return index.indexOf(data.code) < 0;
   })
-}
-
-/**
- * 公開済みデータが持っているか？
- * @param {Array} raw 取得したばかりの生データ
- * @param {Array} public 公開済みデータ
- */
-function hasPublic(raw, public) {
-  for (pub of public) {
-    if (raw.code == pub.code) {
-      return true;
-    }
-  }
-  return false;
 }
 
 /**
