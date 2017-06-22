@@ -7,33 +7,39 @@ moment.locale('ja')
 /**
  * メイン処理
  */
-Promise.resolve()
+module.exports = () => {
+  return Promise.resolve()
     .then(console.log('main start'))
     .then(initialize())
     .then(() => scrapingAndSendAll())
-    .then(() => firebase.database().goOffline())
+    // .then(() => firebase.database().goOffline())
     .then(() => console.log('main end'))
     .catch(err => console.error(err))
+}
 
 /**
  * 初期処理
  */
 function initialize() {
-    firebase.initializeApp(config);
+  firebase.initializeApp(config);
+}
+
+function finalize() {
+  firebase.database().goOffline()
 }
 
 /**
  * hashtags.jsからスクレイピング -> Firebase送信
  */
 function scrapingAndSendAll() {
-    const hashtags = require("./hashtags.js")
-    return Promise.all(
-        hashtags.map(hashtag => {
-            return scraping(hashtag.tag)
-                .then(data => convertTimestampToDate(data))
-                .then(data => sendToFirebase(hashtag, data))
-        })
-    )
+  const hashtags = require("./hashtags.js")
+  return Promise.all(
+    hashtags.map(hashtag => {
+      return scraping(hashtag.tag)
+        .then(data => convertTimestampToDate(data))
+        .then(data => sendToFirebase(hashtag, data))
+    })
+  )
 }
 
 /**
@@ -41,10 +47,10 @@ function scrapingAndSendAll() {
  * @param {string} tag タグ文字列
  */
 function scraping(tag) {
-    return ig.scrapeTagPage(tag)
-        .then((result) => {
-            return result;
-        })
+  return ig.scrapeTagPage(tag)
+    .then((result) => {
+      return result;
+    })
 }
 
 /**
@@ -52,11 +58,11 @@ function scraping(tag) {
  * @param {object} data 
 */
 function sendToFirebase(hashtag, data) {
-    return firebase.database()
-        .ref('/instagram/' + hashtag.id)
-        .set(data, function () {
-            console.log(`send ${hashtag.name}`)
-        })
+  return firebase.database()
+    .ref('/instagram/' + hashtag.id)
+    .set(data, function () {
+      console.log(`send ${hashtag.name}`)
+    })
 }
 
 /**
@@ -64,11 +70,11 @@ function sendToFirebase(hashtag, data) {
  * @param {object} data スクレイピング済みデータ
  */
 function convertTimestampToDate(data) {
-    if (!Array.isArray(data.media)) return;
+  if (!Array.isArray(data.media)) return;
 
-    data.media.forEach(function (elm) {
-        elm.post_date = moment.unix(elm.date).format('LLL');
-    }, this);
+  data.media.forEach(function (elm) {
+    elm.post_date = moment.unix(elm.date).format('LLL');
+  }, this);
 
-    return Promise.resolve(data);
+  return Promise.resolve(data);
 }

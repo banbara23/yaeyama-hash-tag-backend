@@ -2,10 +2,10 @@
   "name": "yaeyama-hash-tag-backend",
   "version": "1.0.0",
   "description": "インスタグラムをスクレイピングしてfirebaseに保存する",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "ikemura",

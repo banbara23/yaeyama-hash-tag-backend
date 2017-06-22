@@ -9,22 +9,24 @@ let newIndex = {},
 /**
  * メイン処理
  */
-Promise.resolve()
-  .then(console.log('main start'))
-  .then(() => initialize())
-  .then(() => makeSendData())
-  .then(() => sendToFirebase('/public_index', newIndex))
-  .then(() => sendToFirebase('/public', newPublic))
-  .catch(err => console.error(err))
-  .then(() => firebase.database().goOffline())
-  .then(() => console.log('main end'))
+module.exports = () => {
+  return Promise.resolve()
+    .then(console.log('filter start'))
+    .then(() => initialize())
+    .then(() => makeSendData())
+    .then(() => sendToFirebase('/public_index', newIndex))
+    .then(() => sendToFirebase('/public', newPublic))
+    .catch(err => console.error(err))
+    .then(() => firebase.database().goOffline())
+    .then(() => console.log('filter end'))
+}
 
 /**
  * 初期処理、dbから必要なファイルを取得
  */
 function initialize() {
   const config = require("./firebase-config.js")
-  firebase.initializeApp(config);
+  // firebase.initializeApp(config);
 
   moment.locale('ja')
 
