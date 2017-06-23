@@ -3,21 +3,23 @@ const firebase = require('firebase'),
   filter = require("./src/filter.js"),
   top = require("./src/top.js")
 
-Promise.resolve()
+module.exports = () => Promise.resolve()
   .then(console.log('index start'))
   .then(() => (initialize()))
   .then(() => scrape())
   .then(() => filter())
   .then(() => top())
   .catch(error => console.error(error))
-  .then(() => (finalize()))
+  // .then(() => (finalize()))
   .then(() => (console.log('index end')))
 
 /**
 * 開店準備
 */
 function initialize() {
-  return firebase.initializeApp(require("./firebase-config.js"));
+  if (!firebase.apps.length) {
+    firebase.initializeApp(require("./firebase-config.js"));
+  }
 }
 
 /**
