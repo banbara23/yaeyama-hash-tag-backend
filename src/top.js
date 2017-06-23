@@ -44,17 +44,17 @@ function readDatabase(path) {
 }
 
 function createTopData(publicData) {
-  return {
-    yaeyama: publicData.yaeyama[0],
-    ishigaki: publicData.ishigaki[0],
-    iriomote: publicData.iriomote[0],
-    taketomi: publicData.taketomi[0],
-    kohama: publicData.kohama[0],
-    kuroshima: publicData.kuroshima[0],
-    hatoma: publicData.hatoma[0],
-    hateruma: publicData.hateruma[0],
-    yonaguni: publicData.yonaguni[0]
-  }
+  return [
+    { code: "yaeyama", title: "八重山", url: publicData.yaeyama[0].thumbnail_src },
+    { code: "ishigaki", title: "石垣島", url: publicData.ishigaki[0].thumbnail_src },
+    { code: "iriomote", title: "西表島", url: publicData.iriomote[0].thumbnail_src },
+    { code: "taketomi", title: "竹富島", url: publicData.taketomi[0].thumbnail_src },
+    { code: "kohama", title: "小浜島", url: publicData.kohama[0].thumbnail_src },
+    { code: "kuroshima", title: "黒島", url: publicData.kuroshima[0].thumbnail_src },
+    { code: "hatoma", title: "鳩間島", url: publicData.hatoma[0].thumbnail_src },
+    { code: "hateruma", title: "波照間島", url: publicData.hateruma[0].thumbnail_src },
+    { code: "yonaguni", title: "与那国島", url: publicData.yonaguni[0].thumbnail_src }
+  ]
 }
 
 /**
@@ -66,7 +66,7 @@ function sendToFirebase(path, data) {
   // console.log(data)
   return firebase.database()
     .ref(path)
-    .update(data, function () {
+    .set(data, function () {
       console.log(`top send ${path}`)
     })
 }
