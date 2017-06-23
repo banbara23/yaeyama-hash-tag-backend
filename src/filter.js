@@ -25,7 +25,7 @@ module.exports = () => {
  * 初期処理、dbから必要なファイルを取得
  */
 function initialize() {
-  const config = require("./firebase-config.js")
+  const config = require("../firebase-config.js")
   // firebase.initializeApp(config);
 
   moment.locale('ja')

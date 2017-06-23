@@ -1,6 +1,6 @@
 const ig = require('instagram-tagscrape');
 const firebase = require('firebase');
-const config = require("./firebase-config.js")
+const config = require("../firebase-config.js")
 const moment = require("moment")
 moment.locale('ja')
 

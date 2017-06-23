@@ -1,5 +1,5 @@
-const scrape = require("./scrape.js"),
-  filter = require("./filter.js");
+const scrape = require("./src/scrape.js"),
+  filter = require("./src/filter.js");
 
 Promise.resolve()
   .then(console.log('index start'))
