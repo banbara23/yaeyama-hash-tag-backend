@@ -119,6 +119,11 @@ function makeSendData() {
         newIndex[id] = newIdx.concat(getIndex(id));
         newPublic[id] = newPub.concat(getPublic(id));
 
+        // 保存データを制限
+        const limit = 30; // 制限値
+        newIndex[id].splice(limit, newIndex[id].length)
+        newPublic[id].splice(limit, newPublic[id].length)
+
         // 完了
         resolve();
       })
