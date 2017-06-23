@@ -61,7 +61,7 @@ function sendToFirebase(hashtag, data) {
   return firebase.database()
     .ref('/instagram/' + hashtag.id)
     .set(data, function () {
-      console.log(`send ${hashtag.name}`)
+      console.log(`scrape send ${(hashtag.name + '　　　　').slice(0, 4)} ${data.count} 件`)
     })
 }
 

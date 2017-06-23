@@ -81,12 +81,12 @@ function makeSendData() {
         if (!raw) {
           reject('生データないので処理せずスキップ');
         }
-        console.log(`${id} raw ${getRaw(id).length}件`)
+        // console.log(`${id} raw ${getRaw(id).length}件`)
         // 選別開始
         // console.log('選別開始');
         const filtered = filter(id); // フィルターで取得する値だけ取得
         if (!filtered) resolve();
-        console.log(`${id} filter ${filtered.length}件`)
+        console.log(`filter ${(id + '            ').slice(0, 12)} ${filtered.length} 件`)
 
         // 選別した値をインデックス＆公開テーブルに追加する
         // console.log('選別した値をインデックス＆公開テーブルに追加する');
@@ -151,7 +151,7 @@ function sendToFirebase(path, data) {
   return firebase.database()
     .ref(path)
     .update(data, function () {
-      console.log(`send ${path}`)
+      console.log(`filter send ${path}`)
     })
 }
 
