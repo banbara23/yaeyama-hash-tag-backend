@@ -150,7 +150,7 @@ function sendToFirebase(path, data) {
   // console.log(data)
   return firebase.database()
     .ref(path)
-    .update(data, function () {
+    .set(data, function () {
       console.log(`filter send ${path}`)
     })
 }
