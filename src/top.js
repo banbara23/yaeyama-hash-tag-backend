@@ -11,7 +11,7 @@ module.exports = () => {
     .then(publicData => (createTopData(publicData)))
     .then((data) => sendToFirebase('/top', data))
     .catch(error => (console.error(error)))
-    .then(() => (finalize()))
+    // .then(() => (finalize()))
     .then(() => (console.log('top end')))
 }
 

@@ -10,7 +10,7 @@ moment.locale('ja')
 module.exports = () => {
   return Promise.resolve()
     .then(console.log('scrape start'))
-    .then(initialize())
+    // .then(initialize())
     .then(() => scrapingAndSendAll())
     // .then(() => firebase.database().goOffline())
     .then(() => console.log('scrape end'))
