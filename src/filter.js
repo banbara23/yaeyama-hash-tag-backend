@@ -14,8 +14,8 @@ module.exports = () => {
     .then(console.log('filter start'))
     .then(() => initialize())
     .then(() => makeSendData())
-    .then(() => sendToFirebase('/public_index', newIndex))
     .then(() => sendToFirebase('/public', newPublic))
+    .then(() => sendToFirebase('/public_index', newIndex))
     .catch(err => console.error(err))
     // .then(() => firebase.database().goOffline())
     .then(() => console.log('filter end'))
@@ -105,12 +105,17 @@ function makeSendData() {
           filtered.forEach(function (elm) {
             idx.push({
               code: elm.code,
-              caption: elm.caption,
+              caption: elm.caption ? elm.caption : '',
               data: moment.unix(elm.date).format('LLL'),
               thumbnail_src: elm.thumbnail_src,
               display_src: elm.display_src,
               is_video: elm.is_video
             })
+
+          if (idx.is_video) {
+            console.log("is_video : true")
+            console.log(idx)
+          }
           })
           return idx;
         })();
@@ -158,6 +163,11 @@ function sendToFirebase(path, data) {
     .set(data, function () {
       console.log(`filter send ${path}`)
     })
+    // todo: catchしたいけど捕まらない問題
+    // .catch(function(error) {
+    //   console.error(`public/${path} の送信に失敗した`)
+    //   throw error;
+    // })
 }
 
 /**
