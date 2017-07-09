@@ -48,6 +48,5 @@ jspm_packages
 
 .vscode
 
-firebase-config.js
 
 scrape/*
