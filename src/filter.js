@@ -125,10 +125,9 @@ function makeSendData() {
         newPublic[id] = newPub.concat(getPublic(id));
 
         // 保存データを制限
-        // const limit = 30; // 制限値
-        // newIndex[id].splice(limit, newIndex[id].length)
-        // newPublic[id].splice(limit, newPublic[id].length)
-        // 試しに制限を解除して保存してみる 2017/07/25
+        const limit = 120; // 制限値
+        newIndex[id].splice(limit, newIndex[id].length)
+        newPublic[id].splice(limit, newPublic[id].length)
 
         // 完了
         resolve();
