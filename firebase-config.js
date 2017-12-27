@@ -1,8 +1,8 @@
 module.exports = {
-    apiKey: "AIzaSyBXWJi4iDj4lzwOMf6u4Cdg6CwjdtGBfhU",
-    authDomain: "yaeyama-hash-tag2.firebaseapp.com",
-    databaseURL: "https://yaeyama-hash-tag2.firebaseio.com",
-    projectId: "yaeyama-hash-tag2",
-    storageBucket: "",
-    messagingSenderId: "679779198727"
+  apiKey: "AIzaSyDXqSIzwGY8KkVtKRWUCw0Yqk3oapvJqPc",
+  authDomain: "yaeyama-hash-tag.firebaseapp.com",
+  databaseURL: "https://yaeyama-hash-tag.firebaseio.com",
+  projectId: "yaeyama-hash-tag",
+  storageBucket: "yaeyama-hash-tag.appspot.com",
+  messagingSenderId: "371952419741"
 };
