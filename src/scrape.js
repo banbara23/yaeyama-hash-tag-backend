@@ -36,6 +36,7 @@ function scrapingAndSendAll() {
   return Promise.all(
     hashtags.map(hashtag => {
       return scraping(hashtag.tag)
+        .then(data => filterSpam(data))
         .then(data => convertTimestampToDate(data))
         .then(data => sendToFirebase(hashtag, data))
     })
@@ -51,6 +52,32 @@ function scraping(tag) {
     .then((result) => {
       return result;
     })
+}
+
+/**
+ * スパムらしき糞投稿が混ざってくるので弾く
+ * @param {*} data 
+ */
+function filterSpam(data) {
+  if (!Array.isArray(data.media)) return;
+
+  const filterdMedia = [];
+  data.media.forEach((e) => {
+    // captionにNUDEという単語があれば弾く
+    if (e.caption &&
+        (e.caption.includes('NUDЕ') ||
+         e.caption.includes('FОIL') ||
+         e.caption.includes('->>'))
+      ) {
+      console.log('スパム発見')
+      // console.log(e)
+      return;
+    }
+    filterdMedia.push(e)
+  })
+  //フィルター後の内容で上書き
+  data.media = filterdMedia;
+  return Promise.resolve(data)
 }
 
 /**
